@@ -59,4 +59,7 @@ dependencies {
     implementation(Dependency.googleMaterial)
     testImplementation(Dependency.junit)
     androidTestImplementation(Dependency.junitExtension)
+
+    implementation(Dependency.hiltNavigation)
+
 }
