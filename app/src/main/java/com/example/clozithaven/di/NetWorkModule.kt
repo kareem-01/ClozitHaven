@@ -1,7 +1,6 @@
 package com.example.clozithaven.di
 
 import com.example.remote.service.categories.CategoriesService
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,6 +9,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -43,7 +43,7 @@ object NetWorkModule {
     fun provideRetrofitBuilder(
         client: OkHttpClient,
         factory: GsonConverterFactory,
-        baseUrl: String
+        @Named("baseUrl")baseUrl: String
     ): Retrofit =
         Retrofit.Builder()
             .baseUrl(baseUrl)
@@ -51,11 +51,15 @@ object NetWorkModule {
             .addConverterFactory(factory)
             .build()
 
-
+@Singleton
+@Provides
+@Named("baseUrl")
+fun provideBaseUrl():String = "https://ecommerce.routemisr.com/api/v1/"
     @Singleton
     @Provides
     fun provideCategoryService(retrofit: Retrofit): CategoriesService =
         retrofit.create(CategoriesService::class.java)
+
 
 
 }
