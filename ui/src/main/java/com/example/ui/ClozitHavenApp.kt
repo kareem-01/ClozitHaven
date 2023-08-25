@@ -7,12 +7,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.ui.nav.NavGraph
 
-//val LocalNavController = compositionLocalOf<NavHostController> { error("NO NavController") }
+val LocalNavController = compositionLocalOf<NavHostController> { error("NO NavController") }
 
 @Composable
 fun ClozitHavenApp() {
-//    val navController = rememberNavController()
-//    CompositionLocalProvider(LocalNavController provides navController){
-//
-//    }
+    val navController = rememberNavController()
+    CompositionLocalProvider(LocalNavController provides navController) {
+        NavGraph(navController)
+    }
 }
