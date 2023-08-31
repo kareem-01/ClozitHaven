@@ -61,5 +61,5 @@ dependencies {
     androidTestImplementation(Dependency.junitExtension)
 
     implementation(Dependency.hiltNavigation)
-
+    implementation(Dependency.splashScreen)
 }
