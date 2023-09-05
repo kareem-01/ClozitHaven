@@ -24,7 +24,7 @@ class LocalPrefsDataStoreImpl @Inject constructor(private val dataStore: DataSto
     }
 
     override suspend fun setEmail(email: String) {
-        
+
     }
 
     override suspend fun getUserName(): Flow<String> {
