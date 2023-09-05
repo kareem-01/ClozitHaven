@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Clozit Haven</string>
+    <string name="signUp">تسجيل الدخول</string>
+    <string name="haveAccount">هل لديك حساب بالفعل؟</string>
+    <string name="Login">تسجيل الدخول</string>
+    <string name="userName">"اسم المستخدم "</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="confirmPassword">تأكيد كلمة المرور</string>
+    <string name="phoneNumber">رقم الهاتف</string>
+    <string name="lessThanThreeUserName">يجب أن يكون اسم المستخدم 3 أحرف أو أكثر</string>
+    <string name="notEmptyEmail">البريد الإلكتروني يجب ألا يكون فارغًا</string>
+    <string name="emptyFields">لا يمكن ترك الحقول فارغة</string>
+    <string name="egyptianPhoneNumbersOnly">فقط أرقام الهواتف المصرية مدعومة في الوقت الحالي</string>
+    <string name="accountAlreadyExists">هذا الحساب موجود بالفعل</string>
+    <string name="passwordsAreNotTheSsame">كلمة المرور ليست مطابقة لكلمة المرور التأكيدية</string>
+    <string name="passwordAtLeastSixChars">يجب أن تكون كلمة المرور على الأقل 6 أحرف</string>
+    <string name="phoneNUmberLessThan11">يجب أن لا يقل او يزيد رقم الهاتف عن 11 رقم</string>
+    <string name="invalidEmail">بريد إلكتروني غير صالح</string>
+    <string name="accountCreated">تم إنشاء الحساب بنجاح</string>
+</resources>
