@@ -14,6 +14,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+
     }
 
     buildTypes {
@@ -62,4 +64,5 @@ dependencies {
 
     implementation(Dependency.hiltNavigation)
     implementation(Dependency.splashScreen)
+    implementation(Dependency.dataStore)
 }

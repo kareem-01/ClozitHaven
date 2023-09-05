@@ -35,7 +35,7 @@ android {
 
 dependencies {
     implementation(project(Modules.USECASE))
-
+    implementation(project(Modules.ENTITY))
     implementation(Dependency.androidxCore)
     implementation(Dependency.appCompat)
     implementation(Dependency.googleMaterial)

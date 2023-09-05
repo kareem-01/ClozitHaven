@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.model.Kapt
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -42,6 +40,7 @@ android {
 dependencies {
     implementation(project(Modules.REPOSITORY))
     implementation(project(Modules.ENTITY))
+    implementation("com.github.skydoves:sandwich:1.3.9")
 
     implementation(Dependency.retrofit)
     implementation(Dependency.gsonConverter)

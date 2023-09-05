@@ -10,4 +10,5 @@ java {
 dependencies {
     api(project(Modules.ENTITY))
     implementation(Dependency.dagger)
+    implementation(Dependency.coroutines)
 }

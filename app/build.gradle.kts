@@ -5,6 +5,8 @@ plugins {
     id("com.google.dagger.hilt.android")
 }
 
+
+
 android {
     namespace = "com.example.clozithaven"
     compileSdk = 33
@@ -20,7 +22,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
     }
+
 
     buildTypes {
         release {
@@ -58,26 +62,12 @@ dependencies {
     implementation(project(Modules.REPOSITORY))
     implementation(project(Modules.VIEWMODEL))
 
-    implementation(Dependency.androidxCore)
-    implementation(Dependency.lifecycleRuntime)
-    implementation(Dependency.activityCompose)
-    implementation(platform(Dependency.composeBom))
-    implementation(Dependency.composeUiTooling)
-    implementation(Dependency.composeUi)
-    implementation(Dependency.composeUiGraphics)
-    implementation(Dependency.composeMaterial3)
-    testImplementation(Dependency.junit)
-    androidTestImplementation(Dependency.junitExtension)
-    androidTestImplementation(platform(Dependency.composeBom))
-    androidTestImplementation(Dependency.composeJunit)
-    debugImplementation(Dependency.composeUiTooling)
-    debugImplementation(Dependency.composeTestManifest)
 
     implementation(Dependency.hilt)
     kapt(Dependency.hiltCompiler)
     implementation(Dependency.retrofit)
     implementation(Dependency.gsonConverter)
     implementation(Dependency.logging)
-
+implementation(Dependency.dataStore)
 
 }
