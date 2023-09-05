@@ -1,7 +1,11 @@
 package com.example.clozithaven.di
 
+import com.example.repository.respository.AuthenticationRepositoryImpl
 import com.example.repository.respository.CategoriesRepositoryImpl
+import com.example.repository.respository.LocalPrefsRepositoryImpl
+import com.example.usecase.repositoryInterfaces.AuthenticationRepository
 import com.example.usecase.repositoryInterfaces.CategoriesRepository
+import com.example.usecase.repositoryInterfaces.LocalPrefsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,4 +18,13 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun provideCategoriesRepository(categoriesRepositoryImpl: CategoriesRepositoryImpl): CategoriesRepository
+
+    @Binds
+    @Singleton
+    abstract fun provideAuthRepository(authenticationRepository: AuthenticationRepositoryImpl): AuthenticationRepository
+
+    @Binds
+    @Singleton
+    abstract fun provideLocalPrefsRepository(repository: LocalPrefsRepositoryImpl): LocalPrefsRepository
+
 }
