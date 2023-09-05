@@ -1,7 +1,7 @@
 package com.example.repository.respository
 
 import com.example.entity.categories.Category
-import com.example.repository.dataSources.RemoteDataSource
+import com.example.repository.dataSources.remote.RemoteDataSource
 import com.example.repository.mappers.toCategory
 import com.example.usecase.repositoryInterfaces.CategoriesRepository
 import javax.inject.Inject
