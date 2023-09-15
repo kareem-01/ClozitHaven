@@ -9,5 +9,6 @@ interface StringsProvider {
     val phoneNumberLessThan11: String
     val invalidEmail:String
     val accountCreated:String
+    val incorrectEmailOrPassword:String
 
 }
