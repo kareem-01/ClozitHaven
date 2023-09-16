@@ -3,20 +3,15 @@ package com.example.remote.dataSource
 import android.util.Log
 import com.example.entity.ErrorResponse
 import com.example.entity.utils.BadEmailException
-import com.example.entity.utils.NoInternetException
+import com.example.entity.utils.EmailExistsException
 import com.example.entity.utils.NullDataException
 import com.example.entity.utils.ServerException
-import com.skydoves.sandwich.ApiResponse
-import com.skydoves.sandwich.onError
-import com.skydoves.sandwich.onSuccess
-import com.skydoves.sandwich.suspendOnError
-import com.skydoves.sandwich.suspendOnSuccess
+import com.example.remote.utils.HttpCode
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.Response
 import retrofit2.Retrofit
 import java.lang.reflect.Type
-import java.net.UnknownHostException
 
 abstract class BaseRemoteDataSource {
     protected suspend fun <T> wrapApiCall(request: suspend () -> Response<T>): T {
@@ -29,8 +24,9 @@ abstract class BaseRemoteDataSource {
                 Log.i("FAIL", response.message().toString())
                 Log.i("FAIL", response.code().toString())
                 when (response.code()) {
-
-                    400 -> throw BadEmailException(response.message())
+                    HttpCode.BADEMAIL.code -> throw BadEmailException(response.message())
+                    HttpCode.BADAUTH.code -> throw BadEmailException(response.message())
+                    HttpCode.DUBLICATED_EMAIL.code -> throw EmailExistsException(response.message())
                     else -> throw ServerException("no Internet")
                 }
             }
