@@ -20,11 +20,11 @@ class LocalPrefsDataStoreImpl @Inject constructor(private val dataStore: DataSto
 
 
     override suspend fun setUserName(name: String) {
-
+        dataStore.setValue(USERNAME, name)
     }
 
     override suspend fun setEmail(email: String) {
-
+        dataStore.setValue(EMAIL, email)
     }
 
     override suspend fun getUserName(): Flow<String> {
@@ -44,6 +44,9 @@ class LocalPrefsDataStoreImpl @Inject constructor(private val dataStore: DataSto
 
     companion object {
         private val APIKEY = stringPreferencesKey("API_KEY")
+        private val USERNAME = stringPreferencesKey("USERNAME")
+        private val EMAIL = stringPreferencesKey("EMAIL")
+
     }
 
 }
