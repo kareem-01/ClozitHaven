@@ -1,18 +1,25 @@
 package com.example.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.entity.utils.BadEmailException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<STATE>(initialValue: STATE) : ViewModel() {
+abstract class BaseViewModel<STATE,UiEFFECT>(initialValue: STATE) : ViewModel() {
+
+    interface UiEffect
+
     protected val _state: MutableStateFlow<STATE> = MutableStateFlow(initialValue)
     val state = _state.asStateFlow()
+
+    private val _effect = MutableSharedFlow<UiEffect>()
+    val effect = _effect.asSharedFlow()
+
     fun <T> tryToExecute(
         request: suspend () -> T,
         onSuccess: (T) -> Unit,
@@ -28,4 +35,11 @@ abstract class BaseViewModel<STATE>(initialValue: STATE) : ViewModel() {
             }
         }
     }
+
+    protected fun sendUiEffect(effect: UiEffect) {
+        viewModelScope.launch { _effect.emit(effect) }
+    }
+
+
+
 }
