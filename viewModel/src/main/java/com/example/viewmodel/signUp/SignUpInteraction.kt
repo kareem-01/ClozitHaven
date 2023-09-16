@@ -10,4 +10,5 @@ interface SignUpInteraction {
         rePassword: String,
         phoneNumber: String
     )
+    fun onLogInClick()
 }
