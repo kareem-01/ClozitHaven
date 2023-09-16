@@ -18,5 +18,8 @@
     <string name="phoneNUmberLessThan11">phone number can\'t be less or more than 11 characters</string>
     <string name="invalidEmail">Invalid email</string>
     <string name="accountCreated">account created successfully</string>
+    <string name="haveAccountYet">Have account yet?</string>
+    <string name="dontHaveAccount">Don\'t have account?</string>
+    <string name="incorrectLogIn">incorrect email or password</string>
 
 </resources>
