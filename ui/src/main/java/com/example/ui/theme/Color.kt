@@ -17,6 +17,7 @@ val lightTextColor = Color(0xFF06004F)
 val lightUnFocusedTextField = Color(0xFFCCCFC7)
 val lightHintText = Color(0xFF9A9A9A)
 val lightBackground = Color(0xFFFFFFFF)
+val lightBottomNavColor = Color(0xFF2F404F)
 // end light
 
 //Dark
@@ -30,5 +31,6 @@ data class CustomColors(
     val textColor: Color = Color.Unspecified,
     val unFocusedTextField: Color = Color.Unspecified,
     val hintColor: Color = Color.Unspecified,
-    val background:Color = Color.Unspecified
+    val background: Color = Color.Unspecified,
+    val bottomNavColor: Color = Color.Unspecified,
 )
