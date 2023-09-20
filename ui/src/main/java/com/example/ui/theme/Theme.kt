@@ -35,7 +35,8 @@ val lightCustomColor = CustomColors(
     textColor = lightTextColor,
     unFocusedTextField = lightUnFocusedTextField,
     hintColor = lightHintText,
-    background = lightBackground
+    background = lightBackground,
+    bottomNavColor = lightBottomNavColor,
 )
 
 private val ClozitHavenCustomColors = staticCompositionLocalOf { CustomColors() }
