@@ -12,10 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorScheme = darkColorScheme(
     primary = lightPrimary,
@@ -37,7 +39,9 @@ val lightCustomColor = CustomColors(
     hintColor = lightHintText,
     background = lightBackground,
     bottomNavColor = lightBottomNavColor,
-)
+    favoriteBackground = lightFavoriteBackground,
+    onBackground87 = onLightBackground87,
+    )
 
 private val ClozitHavenCustomColors = staticCompositionLocalOf { CustomColors() }
 
@@ -68,6 +72,13 @@ fun ClozitHavenTheme(
         }
     }
 
+    val systemUiController = rememberSystemUiController()
+
+    if (darkTheme) {
+        systemUiController.setStatusBarColor(color = Color.Transparent)
+    } else {
+        systemUiController.setStatusBarColor(color = Color.White)
+    }
 
     val customColors = if (darkTheme) lightCustomColor
     else lightCustomColor
