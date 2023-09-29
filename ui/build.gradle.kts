@@ -56,13 +56,16 @@ dependencies {
     implementation(Dependency.hilt)
     kapt(Dependency.hiltCompiler)
 
+    implementation("com.github.skydoves:orchestra-colorpicker:1.2.0")
+    implementation("com.github.skydoves:colorpicker-compose:1.0.4")
     implementation(Dependency.androidxCore)
     implementation(Dependency.appCompat)
     implementation(Dependency.googleMaterial)
     testImplementation(Dependency.junit)
     androidTestImplementation(Dependency.junitExtension)
-
+    implementation("com.eygraber:compose-color-picker:0.0.14")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+    implementation(Dependency.coil)
     implementation(Dependency.hiltNavigation)
     implementation(Dependency.splashScreen)
-    implementation(Dependency.dataStore)
 }
