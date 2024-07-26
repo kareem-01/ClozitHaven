@@ -12,15 +12,18 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ui.BottomNav.BottomNavigation
 import com.example.ui.BottomNav.currentRoute
 import com.example.ui.nav.NavGraph
-import com.github.skydoves.colorpicker.compose.rememberColorPickerController
 
 val LocalNavController = compositionLocalOf<NavHostController> { error("NO NavController") }
 
 @Composable
-fun ClozitHavenApp() {
+fun GlobaStyleApp() {
     val navController = rememberNavController()
     val screens = listOf(
-        Screen.Home.route
+        Screen.Home.route,
+        Screen.Search.route,
+        Screen.Favorite.route,
+        Screen.Cart.route,
+        Screen.Profile.route
     )
 
 
