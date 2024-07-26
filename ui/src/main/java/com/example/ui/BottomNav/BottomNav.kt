@@ -1,6 +1,7 @@
 package com.example.ui.BottomNav
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
@@ -51,7 +52,6 @@ fun BottomNavigation(navController: NavHostController) {
                 .clip(
                     RoundedCornerShape(12.dp)
                 )
-                .background(Color.Red)
         ) {
             items.forEach { item ->
                 NavigationBarItem(
@@ -76,26 +76,38 @@ fun BottomNavigation(navController: NavHostController) {
                             )
                         }
                     },
-                    onClick = {  },
+                    onClick = {
+                        navController.navigate(item.screenRoute) {
+                            navController.graph.startDestinationRoute?.let { screen_route ->
+                                popUpTo(screen_route) {
+                                    saveState = true
+                                }
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+
+                    },
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = colors.primary,
                         indicatorColor = colors.bottomNavColor,
                         unselectedIconColor = Color.White,
                     ),
-                    modifier = Modifier.noRippleClick {
-
-                    }
+                    modifier = Modifier
                 )
             }
         }
         Box(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .offset(y = (-21).dp),
+                .offset(y = (-21).dp)
+                .noRippleClick { },
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                modifier = Modifier.size(59.dp),
+                modifier = Modifier
+                    .size(59.dp)
+                    .clickable { },
                 painter = painterResource(id = R.drawable.polygon_icon),
                 contentDescription = null,
                 tint = MaterialTheme.CustomColors().primary

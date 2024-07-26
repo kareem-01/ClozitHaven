@@ -15,5 +15,7 @@ interface CategoriesService {
     suspend fun getSubCategoriesByCategory(@Path("category_id") categoryId: Int)
 
     @GET("subcategories")
-    suspend fun getAllSubCategories(@Query("page") page: Int? = null): Response<SubCategoriesDto>
+    suspend fun getAllSubCategories(
+        @Query("page") page: Int? = null,
+    ): Response<SubCategoriesDto>
 }
