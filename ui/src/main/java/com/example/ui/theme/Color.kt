@@ -13,11 +13,16 @@ val Pink40 = Color(0xFF7D5260)
 
 // light
 val lightPrimary = Color(0xFF3894A1)
-val lightTextColor = Color(0xFF06004F)
+//val lightTextColor = Color(0xFF06004F)
+val lightTextColor = Color(0xFF2F404F)
 val lightUnFocusedTextField = Color(0xFFCCCFC7)
 val lightHintText = Color(0xFF9A9A9A)
 val lightBackground = Color(0xFFFFFFFF)
 val lightBottomNavColor = Color(0xFF2F404F)
+val lightFavoriteBackground = Color(0x52FFFFFF)
+val starColor = Color(0xFFFFEB36)
+val onLightBackground87 = Color(0xFF000000)
+val lightUnfocusedColor = Color(0xFFCCCFC7)
 // end light
 
 //Dark
@@ -33,4 +38,7 @@ data class CustomColors(
     val hintColor: Color = Color.Unspecified,
     val background: Color = Color.Unspecified,
     val bottomNavColor: Color = Color.Unspecified,
+    val favoriteBackground: Color = Color.Unspecified,
+    val onBackground87: Color = Color.Unspecified,
+    val unfocusedColor: Color = Color.Unspecified,
 )
