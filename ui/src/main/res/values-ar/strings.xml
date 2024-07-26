@@ -19,4 +19,8 @@
     <string name="phoneNUmberLessThan11">يجب أن لا يقل او يزيد رقم الهاتف عن 11 رقم</string>
     <string name="invalidEmail">بريد إلكتروني غير صالح</string>
     <string name="accountCreated">تم إنشاء الحساب بنجاح</string>
+    <string name="haveAccountYet">هل لديك حساب بالفعل؟</string>
+    <string name="dontHaveAccount">ليس لديك حساب؟</string>
+    <string name="incorrectLogIn">البريد الإلكتروني أو كلمة المرور غير صحيحة</string>
+
 </resources>

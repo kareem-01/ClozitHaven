@@ -1,7 +1,9 @@
 package com.example.clozithaven.di
 
+import com.example.remote.AuthInterceptor
 import com.example.remote.service.Authentication.AuthenticationService
 import com.example.remote.service.categories.CategoriesService
+import com.example.remote.service.products.ProductsService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,12 +24,12 @@ object NetWorkModule {
     @Provides
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
-//        authInterceptor:
+        authInterceptor:AuthInterceptor
     ): OkHttpClient =
         OkHttpClient
             .Builder()
             .addInterceptor(loggingInterceptor)
-//            .addInterceptor(authInterceptor)
+            .addInterceptor(authInterceptor)
             .build()
 
     @Provides
@@ -68,4 +70,8 @@ object NetWorkModule {
     fun ProvideSignUpService(retrofit: Retrofit): AuthenticationService =
         retrofit.create(AuthenticationService::class.java)
 
+    @Singleton
+    @Provides
+    fun provideProductService(retrofit: Retrofit): ProductsService =
+        retrofit.create(ProductsService::class.java)
 }

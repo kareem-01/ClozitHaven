@@ -7,19 +7,24 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.ui.theme.Radius8
 import com.example.ui.theme.Space8
+import kotlinx.coroutines.delay
 
 @Composable
-fun SnackBar(modifier: Modifier = Modifier, text: String) {
-
+fun SnackBar(modifier: Modifier = Modifier, text: String, onClear: () -> Unit = {}) {
+    LaunchedEffect(key1 = Unit) {
+        delay(3000)
+        onClear()
+    }
     Snackbar(
         modifier = modifier.padding(Space8),
         shape = RoundedCornerShape(Radius8),
-        containerColor = Color.Black
+        containerColor = Color.Black,
     ) {
         Row(
             modifier = Modifier

@@ -1,6 +1,5 @@
 package com.example.viewmodel.signUp
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.usecase.UseCases.Authentiaction.SignUpUseCase
 import com.example.usecase.UseCases.Authentiaction.UserApiKeyUseCase
@@ -18,7 +17,7 @@ class SignUpViewModel @Inject constructor(
     private val stringsProvider: StringsProvider,
     private val userApiKeyUseCase: UserApiKeyUseCase,
 ) :
-    BaseViewModel<SignUpUiState>(SignUpUiState()), SignUpInteraction {
+    BaseViewModel<SignUpUiState, SignUpEffect>(SignUpUiState()), SignUpInteraction {
 
     override fun signUp() {
 
@@ -36,14 +35,6 @@ class SignUpViewModel @Inject constructor(
 
     private fun checkToSignUp(): Boolean {
         clearMessage()
-        Log.i("HMMM", state.value.phoneNumber.take(3))
-
-        val hmm = state.value.phoneNumber.take(3) == "012"
-        val hmm2 = state.value.phoneNumber.take(3) == "011"
-        val hmm3 = state.value.phoneNumber.take(3) == "010"
-        Log.i("PLEASE", hmm.toString())
-        Log.i("PLEASE", hmm2.toString())
-        Log.i("PLEASE", hmm3.toString())
         state.value.let {
             return if (it.email.isEmpty() || it.userName.isEmpty() || it.password.isEmpty() || it.confirmPassword.isEmpty() || it.phoneNumber.isEmpty()) {
                 _state.update { it.copy(message = stringsProvider.emptyFields) }
@@ -109,6 +100,10 @@ class SignUpViewModel @Inject constructor(
                 phoneNumber = phoneNumber
             )
         }
+    }
+
+    override fun onLogInClick() {
+        sendUiEffect(SignUpEffect.NavigateToLogIn)
     }
 
     override fun updateUiState(type: TextType, text: String) {

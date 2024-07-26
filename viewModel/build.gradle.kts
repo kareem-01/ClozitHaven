@@ -47,4 +47,11 @@ dependencies {
 
     implementation(Dependency.hilt)
     kapt(Dependency.hiltCompiler)
+
 }
+
+//kotlin {
+//    sourceSets.all {
+//        languageSettings.enableLanguageFeature("ExplicitBackingFields")
+//    }
+//}

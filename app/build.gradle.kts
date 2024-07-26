@@ -68,6 +68,6 @@ dependencies {
     implementation(Dependency.retrofit)
     implementation(Dependency.gsonConverter)
     implementation(Dependency.logging)
-implementation(Dependency.dataStore)
+    implementation(Dependency.dataStore)
 
 }

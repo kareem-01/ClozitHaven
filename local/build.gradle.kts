@@ -45,4 +45,7 @@ dependencies {
     implementation(Dependency.dataStore)
     implementation(Dependency.hilt)
     kapt(Dependency.hiltCompiler)
+    implementation(Dependency.roomKtx)
+    implementation(Dependency.roomRuntime)
+    kapt(Dependency.roomCompiler)
 }

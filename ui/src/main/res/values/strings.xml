@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Clozit Haven</string>
+    <string name="app_name">GlobaStyle</string>
     <string name="signUp">Sign Up</string>
     <string name="haveAccount">Have account yet?</string>
     <string name="Login">Login</string>
@@ -18,5 +18,11 @@
     <string name="phoneNUmberLessThan11">phone number can\'t be less or more than 11 characters</string>
     <string name="invalidEmail">Invalid email</string>
     <string name="accountCreated">account created successfully</string>
+    <string name="haveAccountYet">Have account yet?</string>
+    <string name="dontHaveAccount">Don\'t have account?</string>
+    <string name="incorrectLogIn">incorrect email or password</string>
+    <string name="noInternet">network error no internet</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

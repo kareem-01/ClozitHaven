@@ -7,6 +7,7 @@ import javax.inject.Inject
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class LocalPrefsDataStoreImpl @Inject constructor(private val dataStore: DataStore<Preferences>) :
@@ -15,16 +16,16 @@ class LocalPrefsDataStoreImpl @Inject constructor(private val dataStore: DataSto
         dataStore.setValue(APIKEY, apiKey)
     }
 
-    override suspend fun getApiKey(): Flow<String> =
+    override fun getApiKey(): Flow<String> =
         dataStore.data.map { it[(APIKEY)] ?: "" }
 
 
     override suspend fun setUserName(name: String) {
-
+        dataStore.setValue(USERNAME, name)
     }
 
     override suspend fun setEmail(email: String) {
-
+        dataStore.setValue(EMAIL, email)
     }
 
     override suspend fun getUserName(): Flow<String> {
@@ -44,6 +45,9 @@ class LocalPrefsDataStoreImpl @Inject constructor(private val dataStore: DataSto
 
     companion object {
         private val APIKEY = stringPreferencesKey("API_KEY")
+        private val USERNAME = stringPreferencesKey("USERNAME")
+        private val EMAIL = stringPreferencesKey("EMAIL")
+
     }
 
 }
