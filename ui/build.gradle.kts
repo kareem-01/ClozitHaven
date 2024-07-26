@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    alias(libs.plugins.compose.compiler)
+
 }
 
 android {
@@ -45,6 +47,7 @@ android {
     }
 }
 
+
 dependencies {
     implementation(project(Modules.VIEWMODEL))
 
@@ -68,4 +71,5 @@ dependencies {
     implementation(Dependency.coil)
     implementation(Dependency.hiltNavigation)
     implementation(Dependency.splashScreen)
+
 }
