@@ -45,7 +45,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.ui.R
-import com.example.ui.composables.ClozitScaffold
+import com.example.ui.composables.GlobaScaffold
 import com.example.ui.composables.HomeCard
 import com.example.ui.composables.HomeShimmer
 import com.example.ui.theme.CustomColors
@@ -100,7 +100,7 @@ private fun HomeContent(
     )
     val selectedTab = remember { mutableIntStateOf(0) }
     val colors = MaterialTheme.CustomColors()
-    ClozitScaffold {
+    GlobaScaffold {
         LazyVerticalGrid(
             modifier = Modifier.fillMaxSize(),
             columns = GridCells.Fixed(2),
