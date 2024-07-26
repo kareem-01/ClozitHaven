@@ -26,6 +26,8 @@ class StringsProviderImpl @Inject constructor(@ApplicationContext private val co
         get() = getString(R.string.accountCreated)
     override val incorrectEmailOrPassword: String
         get() = getString(R.string.incorrectLogIn)
+    override val noInternetError: String
+        get() = getString(R.string.noInternet)
 
     private fun getString(stringsRes: Int): String {
         return context.getString(stringsRes)

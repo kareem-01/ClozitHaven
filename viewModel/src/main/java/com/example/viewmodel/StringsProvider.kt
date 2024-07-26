@@ -7,8 +7,9 @@ interface StringsProvider {
     val lessThanSixPassword: String
     val phoneNumberNotEgyptian: String
     val phoneNumberLessThan11: String
-    val invalidEmail:String
-    val accountCreated:String
-    val incorrectEmailOrPassword:String
+    val invalidEmail: String
+    val accountCreated: String
+    val incorrectEmailOrPassword: String
+    val noInternetError: String
 
 }
