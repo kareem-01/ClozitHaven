@@ -3,6 +3,7 @@ package com.example.remote.dataSource
 import android.util.Log
 import com.example.entity.ErrorResponse
 import com.example.entity.utils.BadEmailException
+import com.example.entity.utils.BadTokenException
 import com.example.entity.utils.EmailExistsException
 import com.example.entity.utils.NullDataException
 import com.example.entity.utils.ServerException
@@ -18,14 +19,14 @@ abstract class BaseRemoteDataSource {
         return try {
             val response = request()
             if (response.isSuccessful)
-                response.body() ?: throw NullDataException("NUll data ")
+                response.body() ?: throw NullDataException("NUll data")
             else {
                 Log.i("FAIL", response.errorBody().toString())
                 Log.i("FAIL", response.message().toString())
                 Log.i("FAIL", response.code().toString())
                 when (response.code()) {
                     HttpCode.BADEMAIL.code -> throw BadEmailException(response.message())
-                    HttpCode.BADAUTH.code -> throw BadEmailException(response.message())
+                    HttpCode.BADAUTH.code -> throw BadTokenException(response.message())
                     HttpCode.DUBLICATED_EMAIL.code -> throw EmailExistsException(response.message())
                     else -> throw ServerException("no Internet")
                 }
