@@ -6,7 +6,9 @@ import androidx.compose.runtime.Composable
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.DetailsScreen() {
+fun SharedTransitionScope.DetailsScreen(
+    productId:String
+) {
     DetailsContent()
 }
 

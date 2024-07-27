@@ -1,8 +1,17 @@
 package com.example.ui
 
+import android.os.Bundle
+
 const val ITEM_ID = "itemId"
 
-sealed class Screen(val route: String) {
+sealed class Screen(
+    val route: String,
+    var args: Bundle? = null,
+    var routePath: String? = null,
+    var clearBackStack: Boolean = false,
+) {
+    fun withClearBackStack() = apply { clearBackStack = true }
+
     data object Home : Screen("HomeScreen")
     data object SignUp : Screen("SignUp")
     data object LogIn : Screen("LogIn")

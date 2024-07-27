@@ -41,7 +41,7 @@ import com.example.ui.composables.AuthenticationField
 import com.example.ui.composables.AuthinticationButton
 import com.example.ui.composables.SnackBar
 import com.example.ui.composables.keyboardAsState
-import com.example.ui.screens.logIn.navigateToLogIn
+import com.example.ui.nav.navigateToLogIn
 import com.example.ui.theme.CustomColors
 import com.example.ui.theme.Radius24
 import com.example.ui.theme.Space16
