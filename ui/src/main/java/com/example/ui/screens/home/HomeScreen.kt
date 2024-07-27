@@ -44,25 +44,32 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.example.ui.LocalNavController
 import com.example.ui.R
 import com.example.ui.composables.GlobaScaffold
 import com.example.ui.composables.HomeCard
 import com.example.ui.composables.HomeShimmer
+import com.example.ui.nav.navigateToDetails
 import com.example.ui.theme.CustomColors
 import com.example.ui.theme.Radius12
 import com.example.ui.theme.Space16
 import com.example.ui.theme.Space24
 import com.example.ui.theme.Space4
 import com.example.ui.utils.calculateSize
+import com.example.viewmodel.home.HomeEffect
 import com.example.viewmodel.home.HomeInteraction
 import com.example.viewmodel.home.HomeUiState
 import com.example.viewmodel.home.HomeViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun SharedTransitionScope.HomeScreen(
-    homeViewModel: HomeViewModel = hiltViewModel()
-) {
+    homeViewModel: HomeViewModel = hiltViewModel(),
+
+    ) {
+    val navController = LocalNavController.current
     val state by homeViewModel.state.collectAsState()
     val border = remember {
         mutableFloatStateOf(0f)
@@ -82,6 +89,23 @@ fun SharedTransitionScope.HomeScreen(
         }
     }
     HomeContent(border, homeViewModel, pagerState = pagerState, state)
+    LaunchedEffect(key1 = state.isLoading) {
+        homeViewModel.effect.collectLatest {
+            onEffect(it, navController)
+        }
+    }
+}
+
+fun onEffect(effect: HomeEffect, controller: NavController) {
+    when (effect) {
+        is HomeEffect.NavigateToDetails -> {
+            controller.navigateToDetails(effect.id)
+        }
+
+        else -> {}
+    }
+
+
 }
 
 @OptIn(ExperimentalFoundationApi::class)
