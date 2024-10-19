@@ -20,6 +20,12 @@ class ProductsRepositoryImpl @Inject constructor(
         return remoteDataSource.getProducts(category).toEntity(wishList)
     }
 
+    override suspend fun getProductById(productId: String): Product {
+        val wishListResult = runCatching { remoteDataSource.getWishList() }
+        val wishList = wishListResult.getOrNull()?.data?.map { it?.id!! } ?: emptyList()
+        return remoteDataSource.getProductById(productId).toEntity(wishList)
+    }
+
     override suspend fun addProductToWishList(itemId: String): String {
         return remoteDataSource.addProductToWishList(itemId).data?.last()!!
     }

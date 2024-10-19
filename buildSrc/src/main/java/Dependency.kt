@@ -21,7 +21,7 @@ object Dependency {
     private const val ACTIVITY_COMPOSE = "1.7.2"
     private const val COMPOSE_BOM = "2024.06.00"
     private const val NAVIGATION_COMPOSE = "2.8.0-beta02"
-    private const val HILT_NAVIGATION_VERSION = "1.0.0"
+    private const val HILT_NAVIGATION_VERSION = "1.2.0"
     private const val MATERIAL3_VERSION = "1.1.0-beta01"
     private const val COMPOSE_FOUNDATION_VERSION = "1.4.3"
     private const val ANDROID_COMPAT_VERSION = "1.6.1"

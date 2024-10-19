@@ -17,7 +17,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.IntSize
 
-fun Modifier.shimmerEffect() = composed {
+fun Modifier.shimmerEffect(isLoading: Boolean) = composed {
+    if (!isLoading)
+        return@composed this
     var size by remember {
         mutableStateOf(IntSize.Zero)
     }

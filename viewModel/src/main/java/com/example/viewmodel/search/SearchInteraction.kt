@@ -7,4 +7,5 @@ interface SearchInteraction {
     fun onFilterClick()
     fun onFavoriteClick(itemId: String, isFavorite: Boolean)
     fun clearSearchQuery()
+    fun clearAllRecentSearches()
 }

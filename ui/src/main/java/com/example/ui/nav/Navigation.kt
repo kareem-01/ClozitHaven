@@ -18,14 +18,21 @@ import com.example.ui.screens.signUp.SignUpScreen
 
 
 fun NavGraphBuilder.detailsRoute(sharedTransitionScope: SharedTransitionScope) {
-    val productId = Screen.Details.args?.getString("id")
     composable(Screen.Details.route) {
-        sharedTransitionScope.DetailsScreen(productId!!)
+        val productId = Screen.Details.args?.getString("id")!!
+        val image = Screen.Details.args?.getString("image")!!
+        val name = Screen.Details.args?.getString("name")!!
+        sharedTransitionScope.DetailsScreen(productId, image, name, this@composable)
     }
 }
 
-fun NavController.navigateToDetails(productId: String, builder: NavOptionsBuilder.() -> Unit = {}) {
-    Screen.Details.args = bundleOf("id" to productId)
+fun NavController.navigateToDetails(
+    productId: String,
+    imageUrl: String,
+    name: String,
+    builder: NavOptionsBuilder.() -> Unit = {}
+) {
+    Screen.Details.args = bundleOf("id" to productId, "image" to imageUrl, "name" to name)
     navigate(Screen.Details.route, builder)
 }
 
@@ -41,7 +48,7 @@ fun NavController.navigateToSignUp(builder: NavOptionsBuilder.() -> Unit = {}) {
 
 fun NavGraphBuilder.search(sharedTransitionScope: SharedTransitionScope) {
     composable(Screen.Search.route) {
-        sharedTransitionScope.SearchScreen()
+        sharedTransitionScope.SearchScreen(this@composable)
     }
 }
 
@@ -57,13 +64,11 @@ fun NavController.navigateToLogIn(builder: NavOptionsBuilder.() -> Unit = {}) {
 
 fun NavGraphBuilder.homeRoute(
     sharedTransitionScope: SharedTransitionScope,
-    navigateTo: (Screen) -> Unit
 ) {
 
     composable(
         route = Screen.Home.route,
     ) { entry ->
-        sharedTransitionScope.HomeScreen()
-
+        sharedTransitionScope.HomeScreen(this@composable)
     }
 }

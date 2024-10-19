@@ -1,8 +1,8 @@
 package com.example.viewmodel.signUp
 
 import androidx.lifecycle.viewModelScope
-import com.example.usecase.UseCases.Authentiaction.SignUpUseCase
-import com.example.usecase.UseCases.Authentiaction.UserApiKeyUseCase
+import com.example.usecase.useCases.Authentiaction.SignUpUseCase
+import com.example.usecase.useCases.Authentiaction.UserApiKeyUseCase
 import com.example.viewmodel.BaseViewModel
 import com.example.viewmodel.StringsProvider
 import dagger.hilt.android.lifecycle.HiltViewModel

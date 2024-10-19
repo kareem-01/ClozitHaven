@@ -40,6 +40,7 @@ val lightCustomColor = CustomColors(
     bottomNavColor = lightBottomNavColor,
     favoriteBackground = lightFavoriteBackground,
     onBackground87 = onLightBackground87,
+    sizeUnselectedColor = lightSizeIconColor
 )
 
 private val ClozitHavenCustomColors = staticCompositionLocalOf { CustomColors() }

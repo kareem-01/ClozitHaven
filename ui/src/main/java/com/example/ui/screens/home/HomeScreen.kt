@@ -1,9 +1,11 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.example.ui.screens.home
 
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -49,7 +51,6 @@ import com.example.ui.LocalNavController
 import com.example.ui.R
 import com.example.ui.composables.GlobaScaffold
 import com.example.ui.composables.HomeCard
-import com.example.ui.composables.HomeShimmer
 import com.example.ui.nav.navigateToDetails
 import com.example.ui.theme.CustomColors
 import com.example.ui.theme.Radius12
@@ -66,6 +67,7 @@ import kotlinx.coroutines.flow.collectLatest
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun SharedTransitionScope.HomeScreen(
+    animatedVisibilityScope: AnimatedVisibilityScope,
     homeViewModel: HomeViewModel = hiltViewModel(),
 
     ) {
@@ -88,7 +90,8 @@ fun SharedTransitionScope.HomeScreen(
             }
         }
     }
-    HomeContent(border, homeViewModel, pagerState = pagerState, state)
+    HomeContent(border, homeViewModel, pagerState = pagerState, state, animatedVisibilityScope)
+
     LaunchedEffect(key1 = state.isLoading) {
         homeViewModel.effect.collectLatest {
             onEffect(it, navController)
@@ -99,7 +102,7 @@ fun SharedTransitionScope.HomeScreen(
 fun onEffect(effect: HomeEffect, controller: NavController) {
     when (effect) {
         is HomeEffect.NavigateToDetails -> {
-            controller.navigateToDetails(effect.id)
+//            controller.navigateToDetails(effect.id)
         }
 
         else -> {}
@@ -108,14 +111,15 @@ fun onEffect(effect: HomeEffect, controller: NavController) {
 
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun HomeContent(
+private fun SharedTransitionScope.HomeContent(
     sliderValue: MutableState<Float>,
     listener: HomeInteraction,
     pagerState: PagerState,
     state: HomeUiState,
+    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
+    val navController = LocalNavController.current
     val sizes = listOf(230.dp, 270.dp)
     val pagerImages = listOf(
         R.drawable.pager_image_1,
@@ -132,7 +136,7 @@ private fun HomeContent(
             verticalArrangement = Arrangement.spacedBy(Space16),
 
             ) {
-            item() {
+            item {
                 Image(
                     painter = painterResource(id = R.drawable.clozithavenlogo),
                     contentDescription = null,
@@ -225,14 +229,19 @@ private fun HomeContent(
             }
             items(state.items.size) { index ->
                 val imageSize = calculateSize(index = index, sizes = sizes)
-                HomeShimmer(isLoading = state.isLoading) {
-                    HomeCard(
-                        item = state.items[index],
-                        onItemClick = listener::onItemClick,
-                        size = imageSize,
-                        onFavoriteClick = listener::onFavoriteClick
-                    )
-                }
+//                HomeShimmer(isLoading = state.isLoading) {
+                HomeCard(
+                    item = state.items[index],
+                    onItemClick = {
+                        state.items[index].apply {
+                            navController.navigateToDetails(itemId, image,itemName)
+                        }
+                    },
+                    size = imageSize,
+                    onFavoriteClick = listener::onFavoriteClick,
+                    visibilityScope = animatedVisibilityScope,
+                )
+//                }
             }
 
         }

@@ -1,6 +1,9 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.example.ui.screens.search
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.tween
@@ -47,22 +50,29 @@ import com.example.ui.theme.CustomColors
 import com.example.ui.theme.Radius12
 import com.example.ui.theme.Space16
 import com.example.ui.theme.Space8
+import com.example.ui.theme.lightUnfocusedColor
 import com.example.ui.utils.calculateSize
 import com.example.ui.utils.noRippleClick
 import com.example.viewmodel.search.SearchInteraction
 import com.example.viewmodel.search.SearchUiState
 import com.example.viewmodel.search.SearchViewModel
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
+fun SharedTransitionScope.SearchScreen(
+    visibilityScope: AnimatedVisibilityScope,
+    viewModel: SearchViewModel = hiltViewModel(),
+) {
     val state by viewModel.state.collectAsState()
 
-    ScreenContent(state, viewModel)
+    ScreenContent(state, viewModel, visibilityScope)
 }
 
 @Composable
-private fun ScreenContent(state: SearchUiState, listener: SearchInteraction) {
+private fun SharedTransitionScope.ScreenContent(
+    state: SearchUiState,
+    listener: SearchInteraction,
+    visibilityScope: AnimatedVisibilityScope,
+) {
     val colors = MaterialTheme.CustomColors()
     val sizes = listOf(230.dp, 270.dp)
     val interactionSource = remember { MutableInteractionSource() }
@@ -87,7 +97,10 @@ private fun ScreenContent(state: SearchUiState, listener: SearchInteraction) {
                         )
                 },
                 placeholder = {
-                    Row(horizontalArrangement = Arrangement.spacedBy(Space8)) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(Space8),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Icon(
                             painter = painterResource(id = R.drawable.search),
                             contentDescription = null,
@@ -126,47 +139,7 @@ private fun ScreenContent(state: SearchUiState, listener: SearchInteraction) {
             }
         }
         Box(modifier = Modifier.fillMaxSize()) {
-            if (state.searchQuery.isNotEmpty() && state.searchResults.isNotEmpty()) {
-                LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2)) {
-                    items(state.searchResults.size) { index ->
-                        val imageSize = calculateSize(index = index, sizes = sizes)
-
-                        HomeShimmer(isLoading = state.isLoading) {
-                            HomeCard(
-                                item = state.searchResults[index],
-                                onItemClick = listener::onItemClick,
-                                size = imageSize,
-                                onFavoriteClick = listener::onFavoriteClick
-                            )
-                        }
-                    }
-                }
-            } else if (state.searchQuery.isEmpty() && state.recentlySearched.isEmpty()) {
-                Column(
-                    modifier = Modifier.align(Alignment.Center),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(Space16)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.no_recent_searches),
-                        contentDescription = null,
-                        tint = colors.textColor
-                    )
-                    Text(text = "there are no recently searched items", color = colors.textColor)
-
-                }
-            } else if (state.searchQuery.isEmpty() && state.recentlySearched.isNotEmpty()) {
-                Column(modifier = Modifier) {
-                    Row {
-
-                    }
-                    LazyColumn {
-                        items(state.recentlySearched.size) { index ->
-                            RecentSearchItem(item = state.recentlySearched[index])
-                        }
-                    }
-                }
-            } else {
+            if (!state.isLoading) {
                 this@Column.AnimatedVisibility(
                     visible = state.searchQuery.isNotEmpty() && state.searchResults.isEmpty(),
                     modifier = Modifier.align(Alignment.Center),
@@ -190,6 +163,55 @@ private fun ScreenContent(state: SearchUiState, listener: SearchInteraction) {
                             textAlign = TextAlign.Center,
                         )
                     }
+                }
+            } else if (state.searchQuery.isEmpty() && state.recentlySearched.isEmpty()) {
+                Column(
+                    modifier = Modifier.align(Alignment.Center),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(Space16)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.no_recent_searches),
+                        contentDescription = null,
+                        tint = colors.textColor
+                    )
+                    Text(
+                        text = "there are no recently searched items",
+                        color = colors.textColor
+                    )
+
+                }
+            } else if (state.searchQuery.isEmpty() && state.recentlySearched.isNotEmpty()) {
+                Column(modifier = Modifier) {
+                    Row {
+                        Text(text = "Recently Searched", color = colors.textColor)
+                        Text(
+                            text = "Clear All",
+                            color = lightUnfocusedColor,
+                            modifier = Modifier.noRippleClick {
+                                listener.clearAllRecentSearches()
+                            })
+                    }
+                    LazyColumn {
+                        items(state.recentlySearched.size) { index ->
+                            RecentSearchItem(item = state.recentlySearched[index])
+                        }
+                    }
+                }
+            } else {
+                LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2)) {
+                    items(state.searchResults.size) { index ->
+                        val imageSize = calculateSize(index = index, sizes = sizes)
+//                        HomeShimmer(isLoading = state.isLoading) {
+                        HomeCard(
+                            item = state.searchResults[index],
+                            onItemClick = listener::onItemClick,
+                            size = imageSize,
+                            visibilityScope = visibilityScope,
+                            onFavoriteClick = listener::onFavoriteClick,
+                        )
+                    }
+//                    }
                 }
             }
         }

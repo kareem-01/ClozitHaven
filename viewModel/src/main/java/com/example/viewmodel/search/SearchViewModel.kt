@@ -3,9 +3,11 @@ package com.example.viewmodel.search
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.entity.products.Product
-import com.example.usecase.UseCases.products.GetProductsUseCase
+import com.example.usecase.useCases.products.GetProductsUseCase
 import com.example.viewmodel.BaseViewModel
 import com.example.viewmodel.home.toItemCard
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -14,41 +16,43 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @OptIn(FlowPreview::class)
+@HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getProductsUseCase: GetProductsUseCase,
 ) : BaseViewModel<SearchUiState, SearchUiEffect>(SearchUiState()),
     SearchInteraction {
 
     private val queryChannel = Channel<String>(Channel.CONFLATED)
-
     private var searchJob: Job? = null
 
     init {
         viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                tryToExecute(
+                    suspend {
+                        Log.d("SearchViewModel", "getProductsUseCase")
+                        getProductsUseCase()
+                    }, ::onGetProductsSuccess, ::onGetProductsFail
+                )
+            }
             queryChannel
                 .consumeAsFlow()
                 .debounce(900)
                 .collectLatest { query ->
                     if (query.isNotEmpty()) {
                         updateState { copy(isLoading = true) }
-                        Log.d("SearchViewModel", "Query: $query")
                         search(query)
                     }
                 }
-            tryToExecute(
-                suspend {
-                    getProductsUseCase()
-                }, ::onGetProductsSuccess, ::onGetProductsFail
-            )
         }
     }
 
     private fun onGetProductsFail(exception: Exception) {
         updateState { copy(isLoading = false, isSuccess = false) }
-        Log.e("SearchViewModelError", "onGetProductsFail: ${exception.message}")
     }
 
     private fun onGetProductsSuccess(products: List<Product>) {
@@ -57,9 +61,9 @@ class SearchViewModel @Inject constructor(
 
     override fun search(query: String) {
         val filteredItems = state.value.allItems.filter {
-            it.itemName.contains(query, ignoreCase = true)
+            it.itemName.startsWith(query, ignoreCase = true)
         }
-        updateState { copy(searchResults = filteredItems) }
+        updateState { copy(searchResults = filteredItems, isLoading = false) }
     }
 
     override fun onItemClick(id: String) {
@@ -92,6 +96,10 @@ class SearchViewModel @Inject constructor(
         updateState {
             copy(searchQuery = "")
         }
+    }
+
+    override fun clearAllRecentSearches() {
+        TODO("Not yet implemented")
     }
 
 }

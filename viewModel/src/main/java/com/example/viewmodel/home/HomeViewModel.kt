@@ -5,11 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.entity.categories.Category
 import com.example.entity.products.Product
 import com.example.entity.utils.BadTokenException
-import com.example.usecase.UseCases.Authentiaction.UserApiKeyUseCase
-import com.example.usecase.UseCases.categories.GetAllCategoriesUseCase
-import com.example.usecase.UseCases.products.AddProductToFavorite
-import com.example.usecase.UseCases.products.DeleteFromFavoriteUseCase
-import com.example.usecase.UseCases.products.GetProductsUseCase
+import com.example.usecase.useCases.Authentiaction.UserApiKeyUseCase
+import com.example.usecase.useCases.categories.GetAllCategoriesUseCase
+import com.example.usecase.useCases.products.AddProductToFavoriteUseCase
+import com.example.usecase.useCases.products.DeleteFromFavoriteUseCase
+import com.example.usecase.useCases.products.GetProductsUseCase
 import com.example.viewmodel.BaseViewModel
 import com.example.viewmodel.StringsProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +23,7 @@ class HomeViewModel @Inject constructor(
     private val getAllCategoriesUseCase: GetAllCategoriesUseCase,
     private val userApiKeyUseCase: UserApiKeyUseCase,
     private val getProductsUseCase: GetProductsUseCase,
-    private val addProductToFavorite: AddProductToFavorite,
+    private val addProductToFavoriteUseCase: AddProductToFavoriteUseCase,
     private val deleteFromFavoriteUseCase: DeleteFromFavoriteUseCase,
     private val stringsProvider: StringsProvider,
 ) :
@@ -40,9 +40,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getAllCategories() {
-
         tryToExecute({ getAllCategoriesUseCase() }, ::onGetCategoriesSuccess, ::onGetCategoriesFail)
-
     }
 
     private fun onGetCategoriesFail(throwable: Throwable) {}
@@ -69,7 +67,7 @@ class HomeViewModel @Inject constructor(
                 { onDeleteFavoriteSuccess(itemId) },
                 {})
         else
-            tryToExecute({ addProductToFavorite(itemId) }, ::onAddFavoriteSuccess, ::onError)
+            tryToExecute({ addProductToFavoriteUseCase(itemId) }, ::onAddFavoriteSuccess, ::onError)
 
     }
 

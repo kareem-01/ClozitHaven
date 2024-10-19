@@ -13,7 +13,9 @@ val Pink40 = Color(0xFF7D5260)
 
 // light
 val lightPrimary = Color(0xFF3894A1)
+
 //val lightTextColor = Color(0xFF06004F)
+val lightSizeIconColor = Color(0xFFF8F8FA)
 val lightTextColor = Color(0xFF2F404F)
 val lightUnFocusedTextField = Color(0xFFCCCFC7)
 val lightHintText = Color(0xFF9A9A9A)
@@ -23,12 +25,20 @@ val lightFavoriteBackground = Color(0x52FFFFFF)
 val starColor = Color(0xFFFFEB36)
 val onLightBackground87 = Color(0xFF000000)
 val lightUnfocusedColor = Color(0xFFCCCFC7)
+val minusIconColor = Color(0xFFA9ADA2)
 // end light
 
 //Dark
 
 //end Dark
 
+//shared
+val orange: Color = Color(0xFFF79E1B)
+val green: Color = Color(0xFF90BF31)
+val lightBlue = Color(0xFF5BC5D4)
+val red = Color(0xFFAA160C)
+val pink = Color(0xFFE086A6)
+//shared
 
 @Immutable
 data class CustomColors(
@@ -41,4 +51,5 @@ data class CustomColors(
     val favoriteBackground: Color = Color.Unspecified,
     val onBackground87: Color = Color.Unspecified,
     val unfocusedColor: Color = Color.Unspecified,
+    val sizeUnselectedColor: Color = Color.Unspecified
 )

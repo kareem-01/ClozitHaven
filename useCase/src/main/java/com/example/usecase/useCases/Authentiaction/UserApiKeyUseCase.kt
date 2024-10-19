@@ -1,4 +1,4 @@
-package com.example.usecase.UseCases.Authentiaction
+package com.example.usecase.useCases.Authentiaction
 
 import com.example.usecase.repositoryInterfaces.LocalPrefsRepository
 import kotlinx.coroutines.flow.Flow

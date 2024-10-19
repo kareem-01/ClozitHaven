@@ -17,6 +17,7 @@ val TextSize14 = 14.sp
 val TextSize18 = 18.sp
 
 
+val Radius4 = 4.dp
 val Radius8 = 8.dp
 val Radius12 = 12.dp
 val Radius24 = 24.dp

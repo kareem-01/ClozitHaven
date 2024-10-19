@@ -2,8 +2,6 @@ package com.example.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.entity.utils.BadEmailException
-import com.example.entity.utils.ServerException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,10 +27,6 @@ abstract class BaseViewModel<STATE, UiEFFECT>(initialValue: STATE) : ViewModel()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 request().also(onSuccess)
-            } catch (e: BadEmailException) {
-                onError(e)
-            } catch (e: ServerException) {
-                onError(e)
             } catch (e: Exception) {
                 onError(e)
             }

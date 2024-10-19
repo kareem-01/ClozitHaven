@@ -11,7 +11,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 @Module
 @InstallIn(ViewModelComponent::class)
 abstract class StringProviderModule {
-@Binds
-@ViewModelScoped
-abstract fun provideStringResource(stringsProvider: StringsProviderImpl):StringsProvider
+    @Binds
+    @ViewModelScoped
+    abstract fun provideStringResource(stringsProvider: StringsProviderImpl): StringsProvider
 }

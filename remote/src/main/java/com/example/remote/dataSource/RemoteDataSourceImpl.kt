@@ -10,10 +10,11 @@ import com.example.repository.models.dto.Authentication.LogInDto
 import com.example.repository.models.dto.Authentication.SignUpDto
 import com.example.repository.models.dto.brands.CategoriesDto
 import com.example.repository.models.dto.brands.SubCategoriesDto
+import com.example.repository.models.dto.products.ProductDto
 import com.example.repository.models.dto.products.ProductId
 import com.example.repository.models.dto.products.ProductsDto
-import com.example.repository.models.dto.products.WishListDto
 import com.example.repository.models.dto.products.WishListConfirmDto
+import com.example.repository.models.dto.products.WishListDto
 import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(
@@ -41,6 +42,10 @@ class RemoteDataSourceImpl @Inject constructor(
         return wrapApiCall { productsService.getAllProducts(category) }
     }
 
+    override suspend fun getProductById(productId: String): ProductDto {
+        return wrapApiCall { productsService.getProductById(productId) }
+    }
+
     override suspend fun getWishList(): WishListDto {
         return wrapApiCall { productsService.getWishListItems() }
     }
@@ -50,6 +55,10 @@ class RemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun deleteProductFromWishList(itemId: String) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addToCart(itemId: String) {
         TODO("Not yet implemented")
     }
 

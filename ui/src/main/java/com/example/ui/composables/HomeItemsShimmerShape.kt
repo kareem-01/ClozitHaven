@@ -22,19 +22,19 @@ fun HomeShimmer(
             Box(
                 modifier = Modifier
                     .size(250.dp)
-                    .shimmerEffect()
+                    .shimmerEffect(isLoading = isLoading)
             )
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(.8f)
                     .height(20.dp)
-                    .shimmerEffect()
+                    .shimmerEffect(isLoading = isLoading)
             )
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.4f)
                     .height(20.dp)
-                    .shimmerEffect()
+                    .shimmerEffect(isLoading)
             )
         }
     } else {

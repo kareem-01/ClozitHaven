@@ -10,4 +10,5 @@ data class Product(
     val description: String,
     val piecesLeft: Int,
     val isFavorite: Boolean,
+    val category: String,
 )

@@ -1,4 +1,4 @@
-package com.example.usecase.UseCases.products
+package com.example.usecase.useCases.products
 
 import com.example.entity.products.Product
 import com.example.usecase.repositoryInterfaces.ProductsRepository

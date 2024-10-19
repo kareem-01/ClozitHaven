@@ -2,8 +2,8 @@ package com.example.viewmodel.LogIn
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.example.usecase.UseCases.Authentiaction.LogInUseCase
-import com.example.usecase.UseCases.Authentiaction.UserApiKeyUseCase
+import com.example.usecase.useCases.Authentiaction.LogInUseCase
+import com.example.usecase.useCases.Authentiaction.UserApiKeyUseCase
 import com.example.viewmodel.BaseViewModel
 import com.example.viewmodel.StringsProvider
 import com.example.viewmodel.signUp.TextType

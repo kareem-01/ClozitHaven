@@ -1,4 +1,4 @@
-package com.example.usecase.UseCases.Authentiaction
+package com.example.usecase.useCases.Authentiaction
 
 import com.example.entity.Authentication.SignUpBody
 import com.example.usecase.repositoryInterfaces.AuthenticationRepository

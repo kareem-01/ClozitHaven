@@ -1,5 +1,7 @@
 package com.example.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -28,8 +30,11 @@ fun GlobaStyleApp() {
 
 
     Scaffold(bottomBar = {
-        if (currentRoute(navController) in screens)
+        AnimatedVisibility(
+            visible = currentRoute(navController) in screens,
+        ) {
             BottomNavigation(navController)
+        }
     }) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
             CompositionLocalProvider(LocalNavController provides navController) {
