@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.remote"
-    compileSdk = 33
+    compileSdk = Versions.buildSDK
 
     defaultConfig {
         minSdk = 24

@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.example.clozithaven"
-    compileSdk = 33
+    compileSdk = Versions.buildSDK
 
     defaultConfig {
         applicationId = "com.example.clozithaven"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = Versions.buildSDK
         versionCode = 1
         versionName = "1.0"
 
@@ -62,6 +62,9 @@ dependencies {
     implementation(project(Modules.REPOSITORY))
     implementation(project(Modules.VIEWMODEL))
 
+
+    testImplementation(Dependency.junit)
+    androidTestImplementation(Dependency.junitExtension)
 
     implementation(Dependency.hilt)
     kapt(Dependency.hiltCompiler)

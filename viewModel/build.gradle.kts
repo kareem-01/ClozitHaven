@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.viewmodel"
-    compileSdk = 33
+    compileSdk = Versions.buildSDK
 
     defaultConfig {
         minSdk = 24

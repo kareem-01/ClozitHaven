@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.repository"
-    compileSdk = 33
+    compileSdk = Versions.buildSDK
 
     defaultConfig {
         minSdk = 24
