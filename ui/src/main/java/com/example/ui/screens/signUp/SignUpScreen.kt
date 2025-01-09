@@ -42,6 +42,7 @@ import com.example.ui.composables.AuthinticationButton
 import com.example.ui.composables.SnackBar
 import com.example.ui.composables.keyboardAsState
 import com.example.ui.nav.navigateToLogIn
+import com.example.ui.nav.navigateToMainNavGraph
 import com.example.ui.theme.CustomColors
 import com.example.ui.theme.Radius24
 import com.example.ui.theme.Space16
@@ -79,6 +80,7 @@ fun SignUpScreen(signUpViewModel: SignUpViewModel = hiltViewModel()) {
         when (effect) {
             SignUpEffect.NavigateToLogIn -> navController.navigateToLogIn()
             SignUpEffect.NavigateBack -> navController.popBackStack()
+            SignUpEffect.NavigateToHome -> navController.navigateToMainNavGraph()
         }
     }
     SignUpContent(

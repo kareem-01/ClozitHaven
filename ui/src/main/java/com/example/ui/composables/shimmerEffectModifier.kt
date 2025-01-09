@@ -1,5 +1,6 @@
 package com.example.ui.composables
 
+import android.util.Log
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
@@ -18,8 +19,10 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.IntSize
 
 fun Modifier.shimmerEffect(isLoading: Boolean) = composed {
-    if (!isLoading)
+    if (!isLoading){
         return@composed this
+    }
+    Log.d("shimmerEffect", "shimmerEffect started")
     var size by remember {
         mutableStateOf(IntSize.Zero)
     }
@@ -32,6 +35,7 @@ fun Modifier.shimmerEffect(isLoading: Boolean) = composed {
         ),
         label = "float",
     )
+
     background(
         brush = Brush.linearGradient(
             colors = listOf(

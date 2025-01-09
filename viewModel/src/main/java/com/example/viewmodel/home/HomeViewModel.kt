@@ -1,6 +1,5 @@
 package com.example.viewmodel.home
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.entity.categories.Category
 import com.example.entity.products.Product
@@ -32,7 +31,6 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             userApiKeyUseCase.getUserApiKey().collectLatest { token ->
                 _state.update { it.copy(isSignedIn = token != "") }
-                Log.i("TOKEN", token)
             }
         }
         getAllCategories()
@@ -49,10 +47,10 @@ class HomeViewModel @Inject constructor(
     }
 
     override fun onItemClick(itemId: String) {
-
     }
 
     override fun onTabClick(categoryId: String?) {
+
         getProducts(categoryId)
     }
 
@@ -90,10 +88,8 @@ class HomeViewModel @Inject constructor(
         _state.update {
             it.copy(isLoading = false, items = state.value.items.map { homeCard ->
                 if (homeCard.itemId == itemId) {
-                    Log.i("HENA", "THIS IS IT")
                     homeCard.copy(isFavorite = true)
                 } else {
-                    Log.i("HMMM", "NOT IT ---- ${homeCard.itemId}")
                     homeCard
                 }
             }
@@ -105,6 +101,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getProducts(categoryId: String? = null) {
+        _state.update { it.copy(isLoading = true) }
         tryToExecute({ getProductsUseCase(categoryId) }, ::onProductsSuccess, ::onProductsFail)
     }
 
@@ -123,7 +120,6 @@ class HomeViewModel @Inject constructor(
                 }
             }
         }
-        Log.d("exception", throwable.message.toString())
         _state.update { it.copy(isLoading = false, message = throwable.message.toString()) }
     }
 

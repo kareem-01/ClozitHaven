@@ -41,6 +41,7 @@ import com.example.ui.composables.AuthenticationField
 import com.example.ui.composables.AuthinticationButton
 import com.example.ui.composables.SnackBar
 import com.example.ui.composables.keyboardAsState
+import com.example.ui.nav.navigateToMainNavGraph
 import com.example.ui.nav.navigateToSignUp
 import com.example.ui.theme.CustomColors
 import com.example.ui.theme.Radius24
@@ -72,6 +73,7 @@ fun LogInScreen(
         when (effect) {
             LogInEffect.NavigateToLogIn -> navController.navigateToSignUp()
             LogInEffect.NavigateBack -> navController.popBackStack()
+            LogInEffect.NavigateToHome -> navController.navigateToMainNavGraph()
         }
     }
 

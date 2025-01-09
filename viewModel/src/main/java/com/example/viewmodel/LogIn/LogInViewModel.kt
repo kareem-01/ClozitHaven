@@ -47,6 +47,7 @@ class LogInViewModel @Inject constructor(
         Log.i("SUCCESS",token)
         viewModelScope.launch {
             userApiKeyUseCase.setUserApiKey(token)
+            sendUiEffect(LogInEffect.NavigateToHome)
         }
     }
 

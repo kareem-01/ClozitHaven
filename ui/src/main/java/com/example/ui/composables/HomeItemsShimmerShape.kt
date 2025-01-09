@@ -6,14 +6,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.example.ui.theme.Space8
 
 @Composable
 fun HomeShimmer(
-    modifier: Modifier = Modifier,
     isLoading: Boolean,
     contentAfterLoading: @Composable () -> Unit
 ) {
@@ -22,19 +23,22 @@ fun HomeShimmer(
             Box(
                 modifier = Modifier
                     .size(250.dp)
-                    .shimmerEffect(isLoading = isLoading)
+                    .shimmerEffect(isLoading = true)
+                    .clip(RoundedCornerShape(8.dp))
             )
             Box(
                 modifier = Modifier
                     .fillMaxWidth(.8f)
                     .height(20.dp)
-                    .shimmerEffect(isLoading = isLoading)
+                    .shimmerEffect(isLoading = true)
+                    .clip(RoundedCornerShape(8.dp))
             )
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.4f)
                     .height(20.dp)
-                    .shimmerEffect(isLoading)
+                    .shimmerEffect(true)
+                    .clip(RoundedCornerShape(8.dp))
             )
         }
     } else {

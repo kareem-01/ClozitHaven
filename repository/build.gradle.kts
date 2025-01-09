@@ -42,6 +42,13 @@ dependencies {
     implementation(Dependency.appCompat)
     implementation(Dependency.googleMaterial)
     testImplementation(Dependency.junit)
+    testImplementation(libs.junit.jupiter)
+    implementation(libs.mockitoKotlin)
+    implementation(libs.test.coroutines)
+    implementation(libs.test.truth)
+    testImplementation(libs.junit)
+    testRuntimeOnly(libs.jupiter.engine)
     androidTestImplementation(Dependency.junitExtension)
     androidTestImplementation(Dependency.espresso)
+    implementation(libs.graphics.shapes)
 }

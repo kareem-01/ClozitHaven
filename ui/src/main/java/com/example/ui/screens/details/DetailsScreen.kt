@@ -5,7 +5,6 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +15,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -35,8 +36,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.example.ui.LocalNavController
 import com.example.ui.R
 import com.example.ui.composables.FavoriteIcon
 import com.example.ui.composables.StarRating
@@ -46,12 +49,14 @@ import com.example.ui.theme.Radius24
 import com.example.ui.theme.Radius4
 import com.example.ui.theme.Space12
 import com.example.ui.theme.Space16
-import com.example.ui.theme.Space2
 import com.example.ui.theme.Space24
+import com.example.ui.theme.Space4
 import com.example.ui.theme.Space8
 import com.example.ui.theme.minusIconColor
+import com.example.ui.utils.colorModifier
 import com.example.ui.utils.colors
-import com.example.ui.utils.float
+import com.example.ui.utils.noRippleClick
+import com.example.ui.utils.productDetailBoundsTransform
 import com.example.ui.utils.sizes
 import com.example.viewmodel.details.DetailsInteraction
 import com.example.viewmodel.details.DetailsUiState
@@ -76,7 +81,7 @@ fun SharedTransitionScope.DetailsScreen(
     val context = LocalContext.current
     DetailsContent(state, viewModel, animatedVisibilityScope)
     state.message?.let {
-        Toast.makeText(context, it, 0).show()
+        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
 
     }
 }
@@ -88,10 +93,12 @@ private fun SharedTransitionScope.DetailsContent(
     listener: DetailsInteraction,
     animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
+    val navController = LocalNavController.current
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.CustomColors().background)
+            .systemBarsPadding()
     ) {
         AsyncImage(
             model = state.imageUrl,
@@ -99,7 +106,10 @@ private fun SharedTransitionScope.DetailsContent(
             modifier = Modifier
                 .sharedElement(
                     state = rememberSharedContentState(key = "image-${state.id}"),
-                    animatedVisibilityScope = animatedVisibilityScope
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    boundsTransform = productDetailBoundsTransform,
+//                    exit = fadeOut(nonSpatialExpressiveSpring()),
+//                    enter = fadeIn(nonSpatialExpressiveSpring()),
                 )
                 .fillMaxWidth()
                 .fillMaxHeight(0.35f),
@@ -111,10 +121,16 @@ private fun SharedTransitionScope.DetailsContent(
                 .padding(horizontal = Space16),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            Row(horizontalArrangement = Arrangement.spacedBy(Space8)) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(Space8),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
                     painter = painterResource(id = R.drawable.arrow__left_icon),
                     contentDescription = null,
+                    modifier = Modifier.noRippleClick {
+
+                    }
                 )
                 Text(text = "Details", color = MaterialTheme.CustomColors().textColor)
             }
@@ -188,15 +204,13 @@ private fun SharedTransitionScope.DetailsContent(
                     Row(horizontalArrangement = Arrangement.spacedBy(Space8)) {
                         repeat(5) { index ->
                             val isSelected = state.selectedColor == index
-                            Icon(
-                                painter = painterResource(id = R.drawable.size_icon),
-                                contentDescription = null,
-                                tint = colors[index]!!,
-                                modifier = Modifier.border(
-                                    width = Space2,
-                                    color = if (isSelected) MaterialTheme.CustomColors().primary else Color.Transparent,
-                                    shape = RoundedCornerShape(Space2.float)
-                                )
+                            Box(
+                                modifier = Modifier
+                                    .size(46.dp)
+                                    .colorModifier(
+                                        isSelected = isSelected,
+                                        color = colors[index]!!
+                                    )
                             )
                         }
                     }
@@ -204,7 +218,12 @@ private fun SharedTransitionScope.DetailsContent(
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
                     Column {
                         Text(text = "Quantity")
-                        Row(verticalAlignment = Alignment.CenterVertically) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(
+                                Space4
+                            )
+                        ) {
                             Icon(
                                 imageVector = Icons.Default.Add,
                                 contentDescription = null,

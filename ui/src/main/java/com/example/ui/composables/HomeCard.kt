@@ -4,16 +4,17 @@ package com.example.ui.composables
 
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,14 +22,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
+import coil.imageLoader
 import com.example.ui.theme.CustomColors
+import com.example.ui.theme.Radius12
 import com.example.ui.theme.Radius8
 import com.example.ui.theme.Space8
 import com.example.ui.utils.noRippleClick
@@ -44,34 +49,33 @@ fun SharedTransitionScope.HomeCard(
 ) {
     val typography = MaterialTheme.typography
     val colors = MaterialTheme.CustomColors()
-    var loading = true
     Box(
         modifier = Modifier
             .padding(horizontal = 16.dp)
             .noRippleClick { onItemClick(item.itemId) }
     ) {
         Column(
-            modifier = Modifier,
-            verticalArrangement = Arrangement.spacedBy(Space8)
+            modifier = Modifier.padding(bottom = Space8),
+            verticalArrangement = Arrangement.spacedBy(Space8),
         ) {
-            Image(
+            AsyncImage(
                 modifier = Modifier
                     .sharedElement(
                         state = rememberSharedContentState(key = "image-${item.itemId}"),
                         animatedVisibilityScope = visibilityScope
                     )
-                    .clip(RoundedCornerShape(Radius8))
-                    .height(size)
+                    .clip(RoundedCornerShape(Radius12))
                     .fillMaxWidth()
-                    .shimmerEffect(loading),
-                painter = rememberAsyncImagePainter(model = item.image, onSuccess = {
-                    loading = false
-                }),
+                    .wrapContentHeight(),
+                model = item.image,
+                imageLoader = LocalContext.current.imageLoader,
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = Space8),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
@@ -88,7 +92,7 @@ fun SharedTransitionScope.HomeCard(
                 )
                 StarRating(rating = item.rating)
             }
-            Row {
+            Row(modifier = Modifier.padding(horizontal = Space8)) {
 //                AnimatedVisibility(visible = item.priceBeforeDiscount != null) {
 //                    Box {
 //                        Text(
@@ -125,8 +129,43 @@ fun SharedTransitionScope.HomeCard(
 @Preview
 @Composable
 private fun Preview() {
-    SharedTransitionLayout {
+    Box(
+        modifier = Modifier
+            .size(200.dp)
+            .background(
+                shape = RoundedCornerShape(Radius8),
+                color = Color.Yellow
+            )
+            .border(
+                width = 5.dp,
+                color = Color.Red
+            )
+            .graphicsLayer {
+                rotationY = 90f
+                shape = RoundedCornerShape(Radius8)
+            }
+    )
 
+
+//    SharedTransitionLayout {
+//        AnimatedVisibility(true) {
+//            HomeCard(
+//                item = ItemCard(
+//                    isFavorite = false,
+//                    itemId = "",
+//                    itemName = "HANA",
+//                    currentPrice = "300",
+//                    rating = "4.5",
+//                    image = "https://res.cloudinary.com/dwp0imlbj/image/upload/Route-Academy-products/1680401528923-1.jpeg",
+//                ),
+//                {},
+//                50.dp,
+//                visibilityScope = this,
+//            ) { string, boolean ->
+//
+//            }
+//        }
+//    }
 
 //        HomeCard(
 //            item = ItemCard(
@@ -143,5 +182,4 @@ private fun Preview() {
 //        ) { string, boolean ->
 //
 //        }
-    }
 }

@@ -76,6 +76,7 @@ class SignUpViewModel @Inject constructor(
         _state.update { it.copy(message = stringsProvider.accountCreated) }
         viewModelScope.launch {
             userApiKeyUseCase.setUserApiKey(message)
+            sendUiEffect(SignUpEffect.NavigateToHome)
         }
     }
 

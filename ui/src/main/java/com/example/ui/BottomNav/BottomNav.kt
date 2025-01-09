@@ -1,6 +1,5 @@
 package com.example.ui.BottomNav
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
@@ -59,7 +58,7 @@ fun BottomNavigation(navController: NavHostController) {
                     icon = {
                         if (item is BottomNavigationItem.Cart) {
                             Box(
-                                modifier = Modifier.offset(y = -50.dp),
+                                modifier = Modifier.offset(y = (-50).dp),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Icon(

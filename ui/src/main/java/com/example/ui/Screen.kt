@@ -12,6 +12,7 @@ sealed class Screen(
 ) {
     fun withClearBackStack() = apply { clearBackStack = true }
 
+    data object Main : Screen("MainScreen")
     data object Home : Screen("HomeScreen")
     data object SignUp : Screen("SignUp")
     data object LogIn : Screen("LogIn")
